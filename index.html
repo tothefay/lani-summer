@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ลานี่ ซัมเมอร์ · เกมนิยายฤดูร้อนบนเกาะฮาวาย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Mali:ital,wght@0,400;0,600;1,400&family=Sarabun:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="petals"></div>
+<div id="app">
+  <header id="topbar">
+    <div id="greeting">🌺 อะโลฮ่า! ยินดีต้อนรับสู่เกาะที่ผมเธอพังทุกวัน 🌴</div>
+    <button id="btnMenu" class="icon-btn" title="เมนู">☰</button>
+  </header>
+  <div id="statusbar" class="hidden"></div>
+  <main id="stage" class="card"></main>
+  <nav id="bar" class="hidden">
+    <button data-m="log">📓<span>ประวัติ</span></button>
+    <button data-m="profile">👤<span>โปรไฟล์</span></button>
+    <button data-m="rel">💗<span>ความสัมพันธ์</span></button>
+    <button data-m="phone">📱<span>มือถือ</span></button>
+    <button data-m="menu">☰<span>เมนู</span></button>
+  </nav>
+</div>
+<div id="modal" class="hidden"></div>
+<div id="toasts"></div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/events.js"></script>
+<script src="js/chapters/chapter-01.js"></script>
+<script src="js/chapters/chapter-02.js"></script>
+<script src="js/chapters/chapter-03.js"></script>
+<script src="js/chapters/chapter-04.js"></script>
+<script>GAME.boot();</script>
+</body>
+</html>
