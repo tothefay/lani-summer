@@ -3,21 +3,21 @@
   --pink:#e8457f; --pink-soft:#ffd6e6; --pink-deep:#c42b66;
   --turq:#1fb5b0; --mint:#d6f5ec; --mint-line:#2cc7b8; --mint-text:#0b6b63;
   --cream:#fff8ea; --sand:#f7e8c9; --sun:#ffc94d; --ink:#4a2f27; --ink-soft:#8a6a5c;
-  --bg1:#d9f6f1; --bg2:#ffe9f1; --shadow:0 8px 24px rgba(120,70,60,.16);
+  --say:#0e9b96; --bg1:#d9f6f1; --bg2:#ffe9f1; --shadow:0 8px 24px rgba(120,70,60,.16);
   --fs:1.05rem; --radius:18px;
 }
 :root[data-theme="dark"]{
   --pink:#ff7aa8; --pink-soft:#4a2a3a; --pink-deep:#ff9bbf;
   --turq:#35c9c3; --mint:#173a37; --mint-line:#35c9c3; --mint-text:#9ff0e6;
   --cream:#2a2326; --sand:#3a3030; --sun:#e0ae3c; --ink:#f3e4da; --ink-soft:#bda79b;
-  --bg1:#141f26; --bg2:#241822; --shadow:0 8px 24px rgba(0,0,0,.45);
+  --say:#4fe3da; --bg1:#141f26; --bg2:#241822; --shadow:0 8px 24px rgba(0,0,0,.45);
 }
 @media (prefers-color-scheme: dark){
   :root[data-theme="auto"]{
     --pink:#ff7aa8; --pink-soft:#4a2a3a; --pink-deep:#ff9bbf;
     --turq:#35c9c3; --mint:#173a37; --mint-line:#35c9c3; --mint-text:#9ff0e6;
     --cream:#2a2326; --sand:#3a3030; --sun:#e0ae3c; --ink:#f3e4da; --ink-soft:#bda79b;
-    --bg1:#141f26; --bg2:#241822; --shadow:0 8px 24px rgba(0,0,0,.45);
+    --say:#4fe3da; --bg1:#141f26; --bg2:#241822; --shadow:0 8px 24px rgba(0,0,0,.45);
   }
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -148,10 +148,6 @@ h1,h2,h3,.hand{font-family:'Mali','Kanit',cursive;font-weight:600}
 .screen .choices{margin-top:8px}
 
 /* มินิเกมจับคู่ */
-.matchgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:12px auto}
-.mcard{aspect-ratio:1;font-size:1.8rem;border:0;border-radius:12px;background:var(--turq);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.mcard.open{background:#fff;border:2px solid var(--pink)}
-.mcard.ok{background:var(--mint);border:2px solid var(--mint-line)}
 
 /* โทสต์ */
 #toasts{position:fixed;top:58px;left:0;right:0;z-index:60;display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
@@ -164,3 +160,8 @@ h1,h2,h3,.hand{font-family:'Mali','Kanit',cursive;font-weight:600}
 @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 
 @media (min-width:720px){ :root{--fs:1.12rem} .card{margin:18px auto} }
+
+/* คำพูดสีเทอร์ควอยซ์ */
+.say{color:var(--say);font-weight:600}
+.choice .say,.bubble .say,.hot .say{color:inherit}
+.para.sys .say{color:var(--say)}
