@@ -101,6 +101,8 @@ function pushChat(c){
 /* ===================== แปลงข้อความ ===================== */
 function fmt(s){
   s = esc(s).replace(/\{nick\}/g, esc(S.nick||S.name||'เธอ')).replace(/\{name\}/g, esc(S.name||S.nick||'เธอ'));
+  // คำพูดในเครื่องหมาย "" เป็นสีเทอร์ควอยซ์ (ต้องทำก่อนสร้าง span ที่มีเครื่องหมายคำพูดในแอตทริบิวต์)
+  s = s.replace(/"([^"\n]+)"/g, '<span class="say">"$1"</span>');
   s = s.replace(/\{\{(\w+)\|([^}]+)\}\}/g, (m,id,label)=>`<span class="hot" data-id="${id}">${label}</span>`);
   s = s.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>').replace(/\n/g,'<br>');
   return s;
@@ -212,7 +214,6 @@ function renderScene(id){
 
 function renderEnd(sc, box){
   box.innerHTML = '';
-  if(sc.mini) return renderMini(sc, box);
   if(sc.choices && sc.choices.length) return renderChoices(sc, box);
   if(sc.chEnd) return renderChapterEnd(sc, box);
   const b = el('div','endbox'); const btn = el('button','btn', sc.btn || 'ไปต่อ ›'); btn.onclick = () => go(sc.next); b.appendChild(btn); box.appendChild(b);
@@ -254,41 +255,6 @@ function renderChapterEnd(sc, box){
   c.appendChild(el('p','muted','💾 บันทึกอัตโนมัติแล้ว'));
   const btn = el('button','btn', sc.chEnd.btn || 'บทถัดไป ›'); btn.onclick = () => go(sc.next); c.appendChild(btn);
   box.appendChild(c); autosave();
-}
-
-/* ===================== มินิเกมจับคู่ดอกชบา ===================== */
-function renderMini(sc, box){
-  const m = sc.mini; const wrap = el('div','center'); box.appendChild(wrap);
-  wrap.appendChild(el('p','', fmt(m.intro || '# มินิเกม: จับคู่ดอกชบา — เปิดการ์ดทีละ 2 ใบ ถ้าเหมือนกันจะอยู่ค้างไว้ (แพ้ก็ไม่ตาย)')));
-  const start = el('button','btn alt','เริ่มเล่น 🌺'); wrap.appendChild(start);
-  const skip = el('button','skip','ข้ามมินิเกม (นับเป็นผลกลาง ๆ)'); wrap.appendChild(skip);
-  const finish = (grade) => {
-    wrap.innerHTML = ''; const r = (m.results||{})[grade] || {};
-    const res = el('div'); let d = 0; lines(r.res).forEach(s => { addPara(res, s, d); d += speedStep(); }); wrap.appendChild(res);
-    if(r.fx) applyFx(r.fx); if(grade === 'great') S.flags.match_great = true; checkAch(); updateStatus();
-    const btn = el('button','btn','ไปต่อ ›'); btn.onclick = () => go(r.go || m.next || sc.next); wrap.appendChild(btn);
-  };
-  skip.onclick = () => finish('ok');
-  start.onclick = () => {
-    wrap.innerHTML = '<p class="muted">จำตำแหน่งดอกไม้ให้ได้ — จำนวนครั้งที่เปิด: <b id="mv">0</b></p>';
-    const icons = ['🌺','🐚','🐠','🌴','🍍','🦀']; const deck = icons.concat(icons).sort(()=>Math.random()-.5);
-    const grid = el('div','matchgrid'); wrap.appendChild(grid);
-    let open = [], moves = 0, ok = 0, lockIt = false;
-    deck.forEach(ic => {
-      const c = el('button','mcard','🌴'); c.dataset.v = ic; grid.appendChild(c);
-      c.onclick = () => {
-        if(lockIt || c.classList.contains('open') || c.classList.contains('ok')) return;
-        c.classList.add('open'); c.textContent = ic; open.push(c);
-        if(open.length === 2){
-          moves++; $('#mv').textContent = moves; lockIt = true;
-          const [a,b] = open;
-          if(a.dataset.v === b.dataset.v){ a.className = b.className = 'mcard ok'; ok++; open = []; lockIt = false;
-            if(ok === 6) setTimeout(()=>finish(moves<=9?'great':moves<=14?'ok':'meh'), 600); }
-          else setTimeout(()=>{ a.className = b.className = 'mcard'; a.textContent = b.textContent = '🌴'; open = []; lockIt = false; }, 700);
-        }
-      };
-    });
-  };
 }
 
 /* ===================== แผนที่ / ตารางประจำวัน ===================== */
@@ -400,8 +366,8 @@ function showTbc(){
   const st = resetStage('sunset'); updateStatus();
   const c = el('div','center');
   c.innerHTML = `<div class="aloha-border"></div><h2 class="hand">🌅 จบเนื้อหารอบแรก</h2>
-  <p>ตอนนี้เป็นเช้าวันเสาร์ — วันนัดเก็บขยะกับคาเลโอตอนตีห้าครึ่ง (และความลับเรื่องว่ายน้ำของเธอกำลังจะถูกทดสอบ)</p>
-  <p><i>บทที่ 5 เป็นต้นไปจะมาในรอบถัดไป ตอนนี้ยังเล่นแผนที่อิสระต่อได้เพื่อสะสมความสนิท ของสะสม และความสำเร็จ</i></p>
+  <p>ข่าวลือยังไม่หายไปไหน และเธอก็ยังไม่ได้ตัดสินใจว่าจะทำอย่างไรกับมัน</p>
+  <p><i>บทที่ 6 เป็นต้นไปจะมาในรอบถัดไป ตอนนี้ยังเล่นแผนที่อิสระต่อได้เพื่อสะสมความสนิท ของสะสม และความสำเร็จ</i></p>
   <p class="muted">เล่นมา ${Math.floor(S.playMs/60000)} นาที · เลือกไป ${S.choices} ครั้ง</p>`;
   const a = el('button','btn alt','🗺️ เล่นแผนที่อิสระต่อ'); a.onclick = () => { S.freeDays = 0; showHub(); };
   const b = el('button','btn','💾 บันทึก'); b.onclick = () => openSaves('save');

@@ -151,7 +151,7 @@ D.quests = [
   {id:'q_midterm', name:'สอบกลางภาคให้ผ่าน 70+', desc:'ข้อตกลงกับแม่: ถ้าผ่านเกณฑ์ จะได้อยู่ฮาวายครบเทอม', flag:'quest_midterm', done:'midterm_done'},
   {id:'q_club', name:'หาชมรมให้ได้ภายในเดือนแรก', desc:'ไม่งั้นครูแอนนาจัดให้เอง', flag:'quest_club', done:'club_joined'},
   {id:'q_save', name:'ช่วยชมรมอนุรักษ์ทะเลไม่ให้ถูกยุบ', desc:'ต้องมีสมาชิก 3 คน + เก็บขยะชายหาด 1 ครั้งก่อนงานเทศกาลโรงเรียน', flag:'quest_save_club', done:'club_saved'},
-  {id:'q_letter', name:'ใครส่งจดหมายลึกลับ?', desc:'ซองครีมกับดอกชบาอัดแห้งในล็อกเกอร์ 214', flag:'letter1', done:'letter_solved'},
+  {id:'q_rumor', name:'ข่าวลือ "แฟนของมาคัว"', desc:'ทั้งโรงเรียนเข้าใจผิดจากข้อความที่เธอส่งผิดห้อง — แก้ข่าว หรือปล่อยให้คลาดเคลื่อนต่อ', flag:'rumor_makua', done:'rumor_solved'},
   {id:'q_clean', name:'เก็บขยะชายหาดวันเสาร์ ตี 5 ครึ่ง', desc:'ต้องลุยน้ำ... ทั้งที่เธอว่ายน้ำไม่เก่ง', flag:'quest_cleanup', done:'cleanup_done'}
 ];
 
@@ -169,7 +169,7 @@ D.achievements = [
   A('dog_follow','🐕','มีหมาจรตามกลับบ้าน','ปาอูตามกลับบ้านแล้ว',S=>S.flags.dog_follow),
   A('letter_hunter','✉️','นักสืบซองครีม','ได้จดหมายลึกลับฉบับแรก',S=>S.flags.letter1),
   A('club_hunter','📌','คนเดียวที่ไม่หนี','เข้าชมรมที่ไม่มีใครอยากเข้า',S=>S.flags.club_joined),
-  A('match_pro','🌺','จับคู่ชบาไว้ใจได้','ชนะเกมจับคู่ดอกชบาของโคอา',S=>S.flags.match_great),
+  A('fake_couple','💞','แฟนปลอมมืออาชีพ','ตกลงเป็นแฟนปลอมกับใครสักคน',S=>S.flags.fake_partner),
   A('first_job','☕','พนักงานเสิร์ฟมือใหม่','รับงานพาร์ทไทม์ที่ชบาเมาท์',S=>S.flags.job_cafe),
   A('homesick_meal','🍛','รสชาติบ้านเกิด','กินข้าวไทยที่ร้านป้าติ๋ม',S=>S.flags.thai_visited),
   A('ono_word','😋','ออนอ!','เรียนรู้ว่า ออนอ แปลว่าอร่อย',S=>S.flags.learned_ono),
@@ -187,7 +187,8 @@ D.achievements = [
   A('collect_food','🍽️','นักชิมมือใหม่','เก็บเมนูครบ 5 อย่าง',S=>S.collect.food.length>=5),
   A('collect_place','🗺️','นักสำรวจเกาะ','ไปมาแล้ว 10 สถานที่',S=>S.collect.place.length>=10),
   A('diary_5','📔','นักเขียนไดอารี่','ไดอารี่ครบ 5 คืน',S=>S.diary.length>=5),
-  A('chat_master','📱','ข้อความส่งผิดห้อง','ส่งข้อความผิดห้องแชท',S=>S.flags.wrong_chat),
+  A('chat_master','📱','ข้อความส่งผิดห้อง','ส่งความในใจเข้ากรุ๊ปห้อง 99+ คน',S=>S.flags.wrong_chat),
+  A('denied_rumor','🙅','ปฏิเสธข่าวลือรอบที่ห้า','พยายามแก้ข่าวแล้วข่าวยิ่งแรงขึ้น',S=>S.flags.denied_rumor),
   A('storm_survive','⛈️','พายุไม่ได้ทำให้ผมพังเพิ่ม','อยู่ผ่านวันพายุเข้า',S=>S.flags.storm_seen),
   A('all_slots','🗓️','วันที่เต็มทุกช่อง','ใช้ครบ 4 ช่วงใน 1 วัน',S=>S.flags.full_day),
   A('ngplus','🔁','ฤดูร้อนที่สอง','เริ่มเกมใหม่ (New Game+)',S=>S.ng>0),
